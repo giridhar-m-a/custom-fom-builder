@@ -3,14 +3,14 @@ import { useLocation } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getFormBySlug } from '@/data/getFormData';
 import { FormDetails } from '@/Types';
-import CustomForm from '@/pages/Form';
+import CustomForm from '@/components/Form';
 import Header from './Header';
 
 const Layout = () => {
   const location = useLocation();
 
   const { data: forms } = useQuery({
-    queryKey: ['forms'],
+    queryKey: ['form'],
     queryFn: () => getFormBySlug(location.pathname),
   });
 
@@ -23,7 +23,7 @@ const Layout = () => {
 
   return (
     <div className="app-class lg:block px-2 lg:px-0">
-      <Header/>
+      <Header />
       <Outlet />
       {formData.length > 0 && <CustomForm formData={formData[0]} />}
     </div>

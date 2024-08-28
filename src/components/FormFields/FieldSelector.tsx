@@ -39,6 +39,7 @@ import IconInput from '../ui/icon-input';
 import { useNavigate } from 'react-router-dom';
 
 const FieldSelector = () => {
+  const name = useSelector((state: RootState) => state.FormName);
   const navigate = useNavigate();
   const form_fields = useSelector((state: RootState) => state.formField);
   const savedForm = useSelector((state: RootState) => state.savedForm);
@@ -46,7 +47,7 @@ const FieldSelector = () => {
   const form = useForm<formCreationSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: 'new form',
+      name: name === '' ? undefined : name,
       form_fields,
       url_logic: false,
       start_time_logic: false,
@@ -58,7 +59,7 @@ const FieldSelector = () => {
   const {
     reset,
     handleSubmit,
-    formState: { isSubmitting, isSubmitSuccessful },
+    formState: { isSubmitting, isSubmitSuccessful},
   } = form;
   const dispatch = useDispatch();
 
@@ -91,7 +92,7 @@ const FieldSelector = () => {
     if (!error) {
       toast.success('Form published successfully');
       dispatch(resetForm());
-      navigate('/forms');
+      navigate('/admin');
     } else {
       toast.error(error.message);
     }
@@ -223,7 +224,7 @@ const FieldSelector = () => {
                 name="start_date"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Date of birth</FormLabel>
+                    <FormLabel>Start Date</FormLabel>
                     <Popover>
                       <PopoverTrigger asChild>
                         <FormControl>
@@ -248,9 +249,7 @@ const FieldSelector = () => {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          disabled={(date) =>
-                            date > new Date() || date < new Date('1900-01-01')
-                          }
+                          disabled={(date) => date < new Date()}
                           initialFocus
                           className="w-full"
                         />

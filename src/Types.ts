@@ -25,6 +25,7 @@ interface FormDetails extends formCreationSchema {
   id: number;
   created_at: string;
   uid: string;
+  views: number;
 }
 
 export type { FormField, formCreationSchema, FormDetails };

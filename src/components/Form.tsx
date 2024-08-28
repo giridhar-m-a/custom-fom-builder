@@ -11,6 +11,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { setViewCount } from '@/data/getFormData';
 import { supabase } from '@/lib/supabase';
 import { FormDetails, FormField as FormFieldType } from '@/Types';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -81,6 +82,18 @@ const generateSchema = (fields: FormFieldType[]): ZodSchema => {
 };
 
 const CustomForm = ({ formData }: { formData: FormDetails }) => {
+  // useEffect(() => {
+  //   const setViewCount = async () => {
+  //     await supabase
+  //       .from('forms')
+  //       .update({ views: formData.views + 1 })
+  //       .eq('id', formData.id);
+  //   };
+
+  //   setViewCount();
+  // }, [formData]);
+
+  setViewCount(formData);
   const [open, setOpen] = useState(true);
   const [success, setSuccess] = useState(false);
   const formDataSchema = generateSchema(formData.form_fields);

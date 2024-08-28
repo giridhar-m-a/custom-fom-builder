@@ -9,6 +9,9 @@ import Home from './pages/Home';
 import NewForm from './pages/NewForm';
 import ReduxProvider from './store/ReduxProvider';
 import AdminLayout from './layouts/AdminLayout';
+import Forms from './pages/Forms';
+import ViewSubmissions from './pages/ViewSubmissions';
+import FormPage from './pages/FormPage';
 
 const Routes = createBrowserRouter([
   {
@@ -17,12 +20,18 @@ const Routes = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: 'about-us', element: <Home /> },
+      { path: '/form/:id', element: <FormPage /> },
     ],
   },
   {
     path: '/admin',
     element: <AdminLayout />,
-    children: [{ path: 'new-form', element: <NewForm /> }],
+    children: [
+      { path: 'new-form', element: <NewForm /> },
+      { path: 'edit-form/:id', element: <NewForm /> },
+      { path: '/admin', element: <Forms /> },
+      { path: 'submissions/:id', element: <ViewSubmissions /> },
+    ],
   },
 ]);
 

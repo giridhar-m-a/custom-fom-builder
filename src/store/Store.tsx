@@ -5,6 +5,7 @@ import FormFieldSlice from './FormFieldSlice';
 import OptionSlice from './OptionSlice';
 import FieldEditorSlice from './FieldEditorSlice';
 import FormSlice from './FormSlice';
+import FormNameSlice from './FormNameSlice';
 
 // export const store = configureStore({
 //   reducer: {
@@ -25,6 +26,7 @@ const persistedReducer = persistReducer(
     option: OptionSlice,
     fieldEditor: FieldEditorSlice,
     savedForm: FormSlice,
+    FormName: FormNameSlice,
   }),
 );
 
